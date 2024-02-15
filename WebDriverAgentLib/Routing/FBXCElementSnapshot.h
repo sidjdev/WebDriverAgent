@@ -78,6 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSArray<NSString *> *)sanitizedElementSnapshotHierarchyAttributesForAttributes:(nullable NSArray<NSString *> *)arg1
                                                                           isMacOS:(_Bool)arg2;
 
+- (NSArray<NSString *> *)accessibilityTraitsAsStrings;
 @end
 
 NS_ASSUME_NONNULL_END

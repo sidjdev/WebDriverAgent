@@ -42,8 +42,10 @@ static NSString *const SOURCE_FORMAT_DESCRIPTION = @"description";
 {
   // This method might be called without session
   XCUIApplication *application = request.session.activeApplication ?: XCUIApplication.fb_activeApplication;
-  NSString *sourceType = request.parameters[@"format"] ?: SOURCE_FORMAT_XML;
+  NSString *sourceType = SOURCE_FORMAT_JSON;
   NSString *sourceScope = request.parameters[@"scope"];
+  NSLog(@"SOURCE TYPE IS");
+  NSLog(@"%@", sourceType);
   id result;
   if ([sourceType caseInsensitiveCompare:SOURCE_FORMAT_XML] == NSOrderedSame) {
     NSArray<NSString *> *excludedAttributes = nil == request.parameters[@"excluded_attributes"]
@@ -53,10 +55,13 @@ static NSString *const SOURCE_FORMAT_DESCRIPTION = @"description";
         [[[FBXMLGenerationOptions new]
           withExcludedAttributes:excludedAttributes]
          withScope:sourceScope]];
+    NSLog(@"Return 1");
   } else if ([sourceType caseInsensitiveCompare:SOURCE_FORMAT_JSON] == NSOrderedSame) {
     result = application.fb_tree;
+    NSLog(@"Return 2");
   } else if ([sourceType caseInsensitiveCompare:SOURCE_FORMAT_DESCRIPTION] == NSOrderedSame) {
     result = application.fb_descriptionRepresentation;
+    NSLog(@"Return 3");
   } else {
     return FBResponseWithStatus([FBCommandStatus invalidArgumentErrorWithMessage:[NSString stringWithFormat:@"Unknown source format '%@'. Only %@ source formats are supported.",
                                                                                   sourceType, @[SOURCE_FORMAT_XML, SOURCE_FORMAT_JSON, SOURCE_FORMAT_DESCRIPTION]] traceback:nil]);

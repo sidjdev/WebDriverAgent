@@ -192,6 +192,30 @@
   return YES;
 }
 
+- (NSArray<NSString *> *)accessibilityTraitsAsStrings {
+  unsigned long long traits = self.traits;
+  NSMutableArray<NSString *> *traitsArray = [NSMutableArray array];
+
+  if (traits & UIAccessibilityTraitButton) {
+    [traitsArray addObject:@"Button"];
+  }
+  if (traits & UIAccessibilityTraitLink) {
+    [traitsArray addObject:@"Link"];
+  }
+  if (traits & UIAccessibilityTraitHeader) {
+    [traitsArray addObject:@"Header"];
+  }
+  if (traits & UIAccessibilityTraitSearchField) {
+    [traitsArray addObject:@"SearchField"];
+  }
+  if (traits & UIAccessibilityTraitCausesPageTurn) {
+    [traitsArray addObject:@"CausesPageTurn"];
+  }
+
+  return [traitsArray copy];
+}
+
+
 - (BOOL)isWDAccessibilityContainer
 {
   NSArray<id<FBXCElementSnapshot>> *children = self.children;
