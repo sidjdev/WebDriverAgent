@@ -178,10 +178,10 @@ NSDictionary<NSNumber *, NSString *> *auditTypeValuesToNames(void) {
   info[@"label"] = FBValueOrNull(wrappedSnapshot.wdLabel);
   info[@"rect"] = wrappedSnapshot.wdRect;
   info[@"frame"] = NSStringFromCGRect(wrappedSnapshot.wdFrame);
-  info[@"isEnabled"] = [@([wrappedSnapshot isWDEnabled]) stringValue];
-  info[@"isVisible"] = [@([wrappedSnapshot isWDVisible]) stringValue];
-  info[@"isAccessible"] = [@([wrappedSnapshot isWDAccessible]) stringValue];
-  info[@"isFocused"] = [@([wrappedSnapshot isWDFocused]) stringValue];
+  info[@"isEnabled"] = @([wrappedSnapshot isWDEnabled]);
+  info[@"isVisible"] = @([wrappedSnapshot isWDVisible]);
+  info[@"isAccessible"] = @([wrappedSnapshot isWDAccessible]);
+  info[@"isFocused"] = @([wrappedSnapshot isWDFocused]);
   info[@"traits"] = [wrappedSnapshot accessibilityTraitsAsStrings];
 
   if (!recursive) {
