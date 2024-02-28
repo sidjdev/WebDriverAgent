@@ -195,7 +195,7 @@
 - (NSArray<NSString *> *)accessibilityTraitsAsStrings {
   unsigned long long traits = self.traits;
   NSMutableArray<NSString *> *traitsArray = [NSMutableArray array];
-
+  
   if (traits & UIAccessibilityTraitButton) {
     [traitsArray addObject:@"Button"];
   }
@@ -208,12 +208,50 @@
   if (traits & UIAccessibilityTraitSearchField) {
     [traitsArray addObject:@"SearchField"];
   }
+  if (traits & UIAccessibilityTraitImage) {
+    [traitsArray addObject:@"Image"];
+  }
+  if (traits & UIAccessibilityTraitSelected) {
+    [traitsArray addObject:@"Selected"];
+  }
+  if (traits & UIAccessibilityTraitPlaysSound) {
+    [traitsArray addObject:@"PlaysSound"];
+  }
+  if (traits & UIAccessibilityTraitKeyboardKey) {
+    [traitsArray addObject:@"KeyboardKey"];
+  }
+  if (traits & UIAccessibilityTraitStaticText) {
+    [traitsArray addObject:@"StaticText"];
+  }
+  if (traits & UIAccessibilityTraitSummaryElement) {
+    [traitsArray addObject:@"SummaryElement"];
+  }
+  if (traits & UIAccessibilityTraitNotEnabled) {
+    [traitsArray addObject:@"NotEnabled"];
+  }
+  if (traits & UIAccessibilityTraitUpdatesFrequently) {
+    [traitsArray addObject:@"UpdatesFrequently"];
+  }
+  if (traits & UIAccessibilityTraitStartsMediaSession) {
+    [traitsArray addObject:@"StartsMediaSession"];
+  }
+  if (traits & UIAccessibilityTraitAdjustable) {
+    [traitsArray addObject:@"Adjustable"];
+  }
+  if (traits & UIAccessibilityTraitAllowsDirectInteraction) {
+    [traitsArray addObject:@"AllowsDirectInteraction"];
+  }
   if (traits & UIAccessibilityTraitCausesPageTurn) {
     [traitsArray addObject:@"CausesPageTurn"];
   }
-
+  
+  if (traits & UIAccessibilityTraitTabBar) {
+    [traitsArray addObject:@"TabBar"];
+  }
+  
   return [traitsArray copy];
 }
+
 
 
 - (BOOL)isWDAccessibilityContainer

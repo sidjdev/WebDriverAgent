@@ -451,6 +451,7 @@
   static id userInterfaceStyle = nil;
   static dispatch_once_t styleOnceToken;
   dispatch_once(&styleOnceToken, ^{
+    NSLog(@"TRAITSSSS!!!!! IN DISPATCH");
     if ([UITraitCollection respondsToSelector:NSSelectorFromString(@"currentTraitCollection")]) {
       id currentTraitCollection = [UITraitCollection performSelector:NSSelectorFromString(@"currentTraitCollection")];
       if (nil != currentTraitCollection) {
