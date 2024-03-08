@@ -183,6 +183,12 @@ NSDictionary<NSNumber *, NSString *> *auditTypeValuesToNames(void) {
   info[@"isAccessible"] = @([wrappedSnapshot isWDAccessible]);
   info[@"isFocused"] = @([wrappedSnapshot isWDFocused]);
   info[@"traits"] = [wrappedSnapshot accessibilityTraitsAsStrings];
+  
+  info[@"hittable"] = @([wrappedSnapshot isWDHittable]);
+  info[@"uid"] = [wrappedSnapshot wdUID];
+  
+  info[@"identifier"] = [wrappedSnapshot identifier];
+  info[@"identifiers"] = [wrappedSnapshot identifiers];
 
   if (!recursive) {
     return info.copy;

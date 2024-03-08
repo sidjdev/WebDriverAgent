@@ -75,44 +75,44 @@
 #else
     [[FBRoute POST:@"/wda/element/:uuid/swipe"] respondWithTarget:self action:@selector(handleSwipe:)],
     [[FBRoute POST:@"/wda/swipe"] respondWithTarget:self action:@selector(handleSwipe:)],
-
+    
     [[FBRoute POST:@"/wda/element/:uuid/pinch"] respondWithTarget:self action:@selector(handlePinch:)],
     [[FBRoute POST:@"/wda/pinch"] respondWithTarget:self action:@selector(handlePinch:)],
-
+    
     [[FBRoute POST:@"/wda/element/:uuid/rotate"] respondWithTarget:self action:@selector(handleRotate:)],
     [[FBRoute POST:@"/wda/rotate"] respondWithTarget:self action:@selector(handleRotate:)],
-
+    
     [[FBRoute POST:@"/wda/element/:uuid/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTap:)],
     [[FBRoute POST:@"/wda/doubleTap"] respondWithTarget:self action:@selector(handleDoubleTap:)],
-
+    
     [[FBRoute POST:@"/wda/element/:uuid/twoFingerTap"] respondWithTarget:self action:@selector(handleTwoFingerTap:)],
     [[FBRoute POST:@"/wda/twoFingerTap"] respondWithTarget:self action:@selector(handleTwoFingerTap:)],
-
+    
     [[FBRoute POST:@"/wda/element/:uuid/tapWithNumberOfTaps"] respondWithTarget:self
                                                                          action:@selector(handleTapWithNumberOfTaps:)],
     [[FBRoute POST:@"/wda/tapWithNumberOfTaps"] respondWithTarget:self
                                                            action:@selector(handleTapWithNumberOfTaps:)],
-
+    
     [[FBRoute POST:@"/wda/element/:uuid/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHold:)],
     [[FBRoute POST:@"/wda/touchAndHold"] respondWithTarget:self action:@selector(handleTouchAndHold:)],
-
+    
     [[FBRoute POST:@"/wda/element/:uuid/scroll"] respondWithTarget:self action:@selector(handleScroll:)],
     [[FBRoute POST:@"/wda/scroll"] respondWithTarget:self action:@selector(handleScroll:)],
-
+    
     [[FBRoute POST:@"/wda/element/:uuid/scrollTo"] respondWithTarget:self action:@selector(handleScrollTo:)],
-
+    
     [[FBRoute POST:@"/wda/element/:uuid/dragfromtoforduration"] respondWithTarget:self action:@selector(handleDrag:)],
     [[FBRoute POST:@"/wda/dragfromtoforduration"] respondWithTarget:self action:@selector(handleDrag:)],
-
+    
     [[FBRoute POST:@"/wda/element/:uuid/pressAndDragWithVelocity"] respondWithTarget:self action:@selector(handlePressAndDragWithVelocity:)],
     [[FBRoute POST:@"/wda/pressAndDragWithVelocity"] respondWithTarget:self action:@selector(handlePressAndDragCoordinateWithVelocity:)],
-
+    
     [[FBRoute POST:@"/wda/element/:uuid/forceTouch"] respondWithTarget:self action:@selector(handleForceTouch:)],
     [[FBRoute POST:@"/wda/forceTouch"] respondWithTarget:self action:@selector(handleForceTouch:)],
-
+    
     [[FBRoute POST:@"/wda/element/:uuid/tap"] respondWithTarget:self action:@selector(handleTap:)],
     [[FBRoute POST:@"/wda/tap"] respondWithTarget:self action:@selector(handleTap:)],
-
+    
     [[FBRoute POST:@"/wda/pickerwheel/:uuid/select"] respondWithTarget:self action:@selector(handleWheelSelect:)],
 #endif
     [[FBRoute POST:@"/wda/keys"] respondWithTarget:self action:@selector(handleKeys:)],
@@ -290,7 +290,7 @@
       isFocused = YES;
     }
   }
-
+  
   return FBResponseWithObject(@(isFocused));
 }
 
@@ -367,7 +367,7 @@
 {
   FBSession *session = request.session;
   CGVector startOffset = CGVectorMake((CGFloat)[request.arguments[@"fromX"] doubleValue],
-                                     (CGFloat)[request.arguments[@"fromY"] doubleValue]);
+                                      (CGFloat)[request.arguments[@"fromY"] doubleValue]);
   XCUICoordinate *startCoordinate = [self.class gestureCoordinateWithOffset:startOffset
                                                                     element:session.activeApplication];
   if (![startCoordinate respondsToSelector:@selector(pressForDuration:thenDragToCoordinate:withVelocity:thenHoldForDuration:)]) {
@@ -400,7 +400,7 @@
     }
     return [self.class handleScrollElementToVisible:childElement withRequest:request];
   }
-
+  
   NSString *const direction = request.arguments[@"direction"];
   if (direction) {
     NSString *const distanceString = request.arguments[@"distance"] ?: @"1.0";
@@ -416,7 +416,7 @@
     }
     return FBResponseWithOK();
   }
-
+  
   NSString *const predicateString = request.arguments[@"predicateString"];
   if (predicateString) {
     NSPredicate *formattedPredicate = [NSPredicate fb_snapshotBlockPredicateWithPredicate:[NSPredicate
@@ -429,7 +429,7 @@
     }
     return [self.class handleScrollElementToVisible:childElement withRequest:request];
   }
-
+  
   if (request.arguments[@"toVisible"]) {
     return [self.class handleScrollElementToVisible:element withRequest:request];
   }
@@ -442,17 +442,17 @@
   XCUIElement *element = [elementCache elementForUUID:(NSString *)request.parameters[@"uuid"]];
   NSError *error;
   return [element fb_nativeScrollToVisibleWithError:&error]
-    ? FBResponseWithOK()
-    : FBResponseWithStatus([FBCommandStatus invalidElementStateErrorWithMessage:error.description
-                                                                      traceback:nil]);
+  ? FBResponseWithOK()
+  : FBResponseWithStatus([FBCommandStatus invalidElementStateErrorWithMessage:error.description
+                                                                    traceback:nil]);
 }
 
 + (id<FBResponsePayload>)handleDrag:(FBRouteRequest *)request
 {
   NSString *elementUdid = (NSString *)request.parameters[@"uuid"];
   XCUIElement *target = nil == elementUdid
-    ? request.session.activeApplication
-    : [request.session.elementCache elementForUUID:elementUdid];
+  ? request.session.activeApplication
+  : [request.session.elementCache elementForUUID:elementUdid];
   CGVector startOffset = CGVectorMake([request.arguments[@"fromX"] doubleValue],
                                       [request.arguments[@"fromY"] doubleValue]);
   XCUICoordinate *startCoordinate = [self.class gestureCoordinateWithOffset:startOffset element:target];
@@ -524,16 +524,16 @@
   NSNumber *x = request.arguments[@"x"];
   NSNumber *y = request.arguments[@"y"];
   NSValue *hitPoint = (nil == x || nil == y)
-    ? nil
-    : [NSValue valueWithCGPoint:CGPointMake((CGFloat)[x doubleValue], (CGFloat)[y doubleValue])];
+  ? nil
+  : [NSValue valueWithCGPoint:CGPointMake((CGFloat)[x doubleValue], (CGFloat)[y doubleValue])];
   NSError *error;
   BOOL didSucceed = [element fb_forceTouchCoordinate:hitPoint
                                             pressure:pressure
                                             duration:duration
                                                error:&error];
   return didSucceed
-    ? FBResponseWithOK()
-    : FBResponseWithStatus([FBCommandStatus invalidElementStateErrorWithMessage:error.description
+  ? FBResponseWithOK()
+  : FBResponseWithStatus([FBCommandStatus invalidElementStateErrorWithMessage:error.description
                                                                     traceback:nil]);
 }
 #endif
@@ -553,7 +553,7 @@
 + (id<FBResponsePayload>)handleGetWindowSize:(FBRouteRequest *)request
 {
   XCUIApplication *app = request.session.activeApplication ?: XCUIApplication.fb_activeApplication;
-
+  
 #if TARGET_OS_TV
   CGSize screenSize = app.frame.size;
 #else
@@ -649,7 +649,7 @@ static const NSInteger DEFAULT_MAX_PICKER_ATTEMPTS = 25;
 
 /**
  Returns gesture coordinate for the element based on absolute coordinate
-
+ 
  @param offset absolute screen offset for the given application
  @param element the element instance to perform the gesture on
  @return translated gesture coordinates ready to be passed to XCUICoordinate methods
@@ -662,7 +662,7 @@ static const NSInteger DEFAULT_MAX_PICKER_ATTEMPTS = 25;
 
 /**
  Returns either coordinates or the target element for the given request that expects 'x' and 'y' coordannates
-
+ 
  @param request HTTP request object
  @param error Error instance if any
  @return Either XCUICoordinate or XCUIElement instance. nil if the input data is invalid
@@ -686,7 +686,7 @@ static const NSInteger DEFAULT_MAX_PICKER_ATTEMPTS = 25;
 
 /**
  Returns the target element for the given request
-
+ 
  @param request HTTP request object
  @return Matching XCUIElement instance
  */
@@ -695,8 +695,8 @@ static const NSInteger DEFAULT_MAX_PICKER_ATTEMPTS = 25;
   FBElementCache *elementCache = request.session.elementCache;
   NSString *elementUuid = (NSString *)request.parameters[@"uuid"];
   return nil == elementUuid
-    ? request.session.activeApplication
-    : [elementCache elementForUUID:elementUuid];
+  ? request.session.activeApplication
+  : [elementCache elementForUUID:elementUuid];
 }
 
 #endif
