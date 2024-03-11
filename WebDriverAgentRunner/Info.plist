@@ -26,5 +26,7 @@
 	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+  <key>NSScreenRecordingUsageDescription</key>
+  <string>WebDriverAgent needs to record the screen for automation and testing purposes.</string>
 </dict>
 </plist>

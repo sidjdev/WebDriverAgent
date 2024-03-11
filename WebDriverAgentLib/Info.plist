@@ -22,5 +22,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
+  <key>NSScreenRecordingUsageDescription</key>
+  <string>WebDriverAgent needs to record the screen for automation and testing purposes.</string>
+
 </dict>
 </plist>
